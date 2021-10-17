@@ -69,8 +69,9 @@ public class Automaton {
         List<Integer> possibleStates = transitions.get(stateId).get(transitionCharacter.toString());
 
         if (possibleStates != null) {
-            return this.states.values().stream().filter(currentState -> possibleStates.contains(currentState.id))
-                    .toList();
+            List<State> possibleNextStates = this.states.values().stream()
+                    .filter(currentState -> possibleStates.contains(currentState.id)).toList();
+            return possibleNextStates;
         }
 
         return null;
@@ -104,8 +105,9 @@ public class Automaton {
         for (int i = 0; i < newStates.entrySet().size(); i++) {
             Map.Entry<Integer, State> newState = new ArrayList<>(newStates.entrySet()).get(i);
 
-            String nameToCompare = getStateNames(stateList);
-            if (newState.getValue().name.equals(nameToCompare)) {
+            List<State> innerStates = newState.getValue().innerStates;
+
+            if (innerStates.containsAll(stateList) && stateList.containsAll(innerStates)) {
                 return newState.getValue().id;
             }
         }
@@ -131,6 +133,7 @@ public class Automaton {
 
                 for (State innerState : newState.getValue().innerStates) {
                     List<State> possibleStatesList = findPossibleNextStates(innerState.id, character);
+
                     if (possibleStatesList != null)
                         possibleNextStates.addAll(possibleStatesList);
                 }
