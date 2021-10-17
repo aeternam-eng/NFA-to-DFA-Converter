@@ -3,7 +3,6 @@
 Projeto criado para a disciplina de Fundamentos Teóricos da Computação com o intuito de executar e converter arquivos de autômatos compatíveis com o software JFLAP.
 
 É possivel utilizar através de linha de comando, especificando o diretório do arquivo de entrada, seguido dos parâmetros --run ou --convert.
-Exemplo:
 
 Utilizando o --run, é possível passar um terceiro argumento que representa a sentença a ser processada. 
 A saída do código será uma mensagem indicando se a sentença é aceita ou não pelo autômato.
