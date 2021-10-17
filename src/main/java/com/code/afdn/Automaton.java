@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
-import java.util.logging.Logger;
 
 public class Automaton {
     public final Map<Integer, State> states;
@@ -136,9 +135,6 @@ public class Automaton {
                 }
 
                 if (possibleNextStates.size() > 0) {
-                    State stateToAdd = new State(currentId++, getStateNames(possibleNextStates),
-                            isFinalState(possibleNextStates), possibleNextStates);
-
                     Integer idIfAlreadyExists = compareInnerState(newStates, possibleNextStates);
 
                     if (idIfAlreadyExists >= 0) {
@@ -150,6 +146,9 @@ public class Automaton {
 
                         newTransitions.get(newState.getKey()).get(character.toString()).add(idIfAlreadyExists);
                     } else {
+                        State stateToAdd = new State(currentId++, getStateNames(possibleNextStates),
+                                isFinalState(possibleNextStates), possibleNextStates);
+
                         newStates.put(stateToAdd.id, stateToAdd);
 
                         if (!newTransitions.containsKey(newState.getKey()))

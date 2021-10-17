@@ -23,16 +23,17 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class XmlLoader {
+    private StateType parseStateType(Element parentElement) {
+        boolean isInitial = StreamSupport.stream(XmlHelper.iterable(parentElement.getChildNodes()).spliterator(), false)
+                .anyMatch(childElement -> childElement.getNodeType() == Node.ELEMENT_NODE
+                        && ((Element) childElement).getTagName() == "initial");
 
-    private StateType parseStateType(String tagName) {
-        switch (tagName) {
-            case "initial":
-                return StateType.Initial;
-            case "final":
-                return StateType.Final;
-            default:
-                return StateType.Normal;
-        }
+        boolean isFinal = StreamSupport.stream(XmlHelper.iterable(parentElement.getChildNodes()).spliterator(), false)
+                .anyMatch(childElement -> childElement.getNodeType() == Node.ELEMENT_NODE
+                        && ((Element) childElement).getTagName() == "final");
+
+        return isInitial && isFinal ? StateType.Both
+                : isInitial ? StateType.Initial : isFinal ? StateType.Final : StateType.Normal;
     }
 
     private HashMap<Integer, State> parseStateMap(NodeList nodeList) {
@@ -42,17 +43,11 @@ public class XmlLoader {
             if (parentNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element parentElement = (Element) parentNode;
 
-                for (Node childNode : XmlHelper.iterable(parentElement.getChildNodes())) {
-                    if (childNode.getNodeType() == Node.ELEMENT_NODE) {
-                        Element childElement = (Element) childNode;
+                int id = Integer.parseInt(parentElement.getAttribute("id"));
+                String name = parentElement.getAttribute("name");
+                StateType type = parseStateType(parentElement);
 
-                        int id = Integer.parseInt(parentElement.getAttribute("id"));
-                        String name = parentElement.getAttribute("name");
-                        StateType type = parseStateType(childElement.getTagName());
-
-                        stateMap.put(id, new State(id, name, type));
-                    }
-                }
+                stateMap.put(id, new State(id, name, type));
             }
         }
 
