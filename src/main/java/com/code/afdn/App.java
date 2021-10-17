@@ -16,9 +16,9 @@ public class App {
     private void runAutomaton(Automaton automaton, String sentence) {
         Logger.getLogger(App.class.getName()).info("Running automaton...");
         if (automaton.run(sentence)) {
-            Logger.getLogger(App.class.getName()).info("The sentence is accepted by the NFA!");
+            Logger.getLogger(App.class.getName()).info("The sentence is ACCEPTED by the Automaton!");
         } else {
-            Logger.getLogger(App.class.getName()).info("The sentence is refused by the NFA!");
+            Logger.getLogger(App.class.getName()).info("The sentence is REFUSED by the Automaton!");
         }
     }
 

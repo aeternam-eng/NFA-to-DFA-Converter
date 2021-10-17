@@ -35,14 +35,11 @@ public class Automaton {
     public boolean run(String sentence) {
         Set<Integer> currentStates = new TreeSet<Integer>();
 
-        Logger.getLogger(Automaton.class.getName()).info("Initial state found..." + getInitialState());
-
         currentStates.add(getInitialState());
 
         for (Character character : sentence.toCharArray()) {
             Set<Integer> nextStates = new TreeSet<Integer>();
 
-            // Gets next possible states for all transitions
             for (Integer state : currentStates) {
                 if (transitions.containsKey(state)) {
                     if (transitions.get(state).containsKey(character.toString())) {
