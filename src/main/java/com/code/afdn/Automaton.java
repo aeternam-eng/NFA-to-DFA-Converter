@@ -93,10 +93,11 @@ public class Automaton {
     private StateType isFinalState(List<State> stateList) {
         boolean isFinal = stateList.stream().anyMatch(state -> state.isFinal());
 
-        if (isFinal)
+        if (isFinal) {
             return StateType.Final;
-        else
-            return StateType.Normal;
+        }
+
+        return StateType.Normal;
     }
 
     public Integer compareInnerState(HashMap<Integer, State> newStates, List<State> stateList) {
@@ -146,7 +147,7 @@ public class Automaton {
 
                         newTransitions.get(newState.getKey()).get(character.toString()).add(idIfAlreadyExists);
                     } else {
-                        State stateToAdd = new State(currentId++, getStateNames(possibleNextStates),
+                        State stateToAdd = new State(++currentId, getStateNames(possibleNextStates),
                                 isFinalState(possibleNextStates), possibleNextStates);
 
                         newStates.put(stateToAdd.id, stateToAdd);
