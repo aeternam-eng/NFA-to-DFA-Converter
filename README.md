@@ -2,6 +2,8 @@
 
 Projeto criado para a disciplina de Fundamentos Teóricos da Computação com o intuito de executar e converter arquivos de autômatos compatíveis com o software JFLAP.
 
+### Baseado no Java JDK 16.
+
 É possivel utilizar através de linha de comando, especificando o diretório do arquivo de entrada, seguido dos parâmetros --run ou --convert.
 
 Utilizando o --run, é possível passar um terceiro argumento que representa a sentença a ser processada. 
