@@ -108,6 +108,8 @@ public class XmlWriter {
 
             String currentDirectory = new File(".").getCanonicalPath();
 
+            new File(currentDirectory + "\\converted").mkdirs();
+
             File destinationFile = new File(currentDirectory + "\\converted\\" + fileName);
             destinationFile.createNewFile();
 
